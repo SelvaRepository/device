@@ -1,0 +1,26 @@
+openapi: "3.0.2"
+info:
+  title: Devices API
+  version: "1.0"
+servers:
+  - url: "{protocol}://localhost:{port}/api/v1"
+    variables:
+      protocol:
+        enum:
+          - "http"
+          - "https"
+        default: "http"
+      port:
+        enum:
+          - "8080"
+          - "8443"
+        default: "8080"
+tags:
+  - name: devices
+    description: Managing device resources
+paths:
+  /test:
+    get:
+      responses:
+        '200':
+          description: OK
