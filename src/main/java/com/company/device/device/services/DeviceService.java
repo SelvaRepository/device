@@ -33,4 +33,5 @@ public class DeviceService {
 	public Device createDevice(Device device){
 		return deviceRepository.save(device);
 	}
+
 }

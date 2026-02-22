@@ -11,7 +11,9 @@ import com.company.device.device.services.DeviceService;
 import io.swagger.annotations.Api;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @Api(tags = "Devices")
@@ -27,7 +29,23 @@ public class DeviceController implements DevicesApi {
 	}
 
 	@Override public ResponseEntity<DeviceDto> createDevice(DeviceCreateRequestDto deviceCreateRequestDto) {
-    return null;
+
+		// Map request DTO -> domain entity
+		Device toCreate = deviceMapper.toEntity(deviceCreateRequestDto);
+
+		// Persist
+		Device created = deviceService.createDevice(toCreate);
+
+		// Build Location: /devices/{id}
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentRequestUri()
+				.path("/{id}")
+				.buildAndExpand(created.getId())
+				.toUri();
+
+		// Map entity -> DTO and return 201
+		return ResponseEntity.created(location).body(deviceMapper.toDto(created));
+
 	}
 
 	@Override public ResponseEntity<DeviceDto> getDeviceById(Long id) {
