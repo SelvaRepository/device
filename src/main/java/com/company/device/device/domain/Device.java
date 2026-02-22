@@ -2,10 +2,7 @@ package com.company.device.device.domain;
 
 import com.company.device.device.domain.enums.State;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.OffsetDateTime;
 
@@ -13,6 +10,7 @@ import java.time.OffsetDateTime;
 @Table(name= "device")
 @Getter
 @Setter
+@Builder
 public class Device {
 
 	@Id
